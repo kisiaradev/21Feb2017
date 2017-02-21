@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="small-12 columns">
 				<h1>How well do you know CT interns?</h1>
-				<p class="count"> {{ internStep }} / {{ totalInterns}}</p>
+				<p class="score columns small-12" :class="{hide: hideClass}">Your Score: {{ score }} / {{ totalScore}}</p>
 			</div>
 
 			<div id="container" class="small-12 columns">
@@ -26,23 +26,33 @@
 				<div class="form-container columns small-8">
 					<form action="">
 						<label>
-						  	Enter Intern Name:
-						  	<input type="text" >
+						  	Enter Intern Full Name: (christian name first)
+						  	<input id="name" v-model="answers[internStep - 1].name" type="text" >
 						</label>
 
 						<label>
 						  	Age of Intern:
-						  	<input type="number" >
+						  	<input id="age" v-model="answers[internStep - 1].age" type="text" >
 						</label>
 
 						<label>
 						  	Place of Residence:
-						  	<input type="text" >
+						  	<input id="residence" v-model="answers[internStep - 1].residence" type="text" >
 						</label>
 
+						<div class="real-image" :class="{hide: hideClass}">
+							<img v-bind:src="interns[internStep - 1].person" alt="">
+						</div>
+
 						<div id="button-container" class="row columns small-12 ">
-							<div class="go-right">
-								<button v-on:click="internStep++" type="button" class="success button small expanded">Next Intern</button>
+							<div v-if="internStep > 1" class="go-left">
+								<button @click="internStep = internStep - 1" type="button" class="alert button small expanded">Previous Intern</button>
+							</div>
+							<div v-if="internStep < 5" class="go-right">
+								<button @click="nextQuestion" type="button" class="success button small expanded">Next Intern</button>
+							</div>
+							<div v-else="" class="go-right">
+								<button @click="getAnswers" type="button" class="button small expanded">Finalise and view score</button>
 							</div>
 						</div>
 						
@@ -61,18 +71,47 @@ var vm = new Vue({
 	el: "#app",
 	data: {
 		interns: [
-			{ name: "Ya'kov Erick", age: 22, residence: "Kaloleni", image: "img/erick.png"},
-			{ name: "Kelvin Maina", age: 23, residence: "Kitengela", image: "img/kelvin.png"},
-			{ name: "Brian Kariuki", age: 23, residence: "Kasarani", image: "img/brian.png"},
-			{ name: "Duncan Kinuthia", age: 22, residence: "Ruaka", image: "img/duncan.png"},
-			{ name: "Kisiara Francis", age: 28, residence: "Mirema", image: "img/frank.png"},
+			{ name: "Ya'kov Erick", age: "22", residence: "Kaloleni", image: "img/erick.png", person: "img/real/erick.png"},
+			{ name: "Kelvin Maina", age: "23", residence: "Kitengela", image: "img/kelvin.png", person: "img/real/kelvin.png"},
+			{ name: "Brian Kariuki", age: "23", residence: "Kasarani", image: "img/brian.png", person: "img/real/brian.png"},
+			{ name: "Duncan Kinuthia", age: "22", residence: "Ruaka", image: "img/duncan.png", person: "img/real/duncan.png"},
+			{ name: "Kisiara Francis", age: "28", residence: "Mirema", image: "img/frank.png", person: "img/real/frank.png"},
 		],
-
+		hideClass: true,
 		internStep: 1,
-		totalInterns: 5
+		totalInterns: 5,
+		totalScore: 15,
+		score: 0,
+		answers: [
+			{name: '', age: '', residence: ''},
+			{name: '', age: '', residence: ''},
+			{name: '', age: '', residence: ''},
+			{name: '', age: '', residence: ''},
+			{name: '', age: '', residence: ''}
+		]
 	},
-	methods: {
+	computed:{
 
+	},
+
+	methods: {
+		nextQuestion: function(){
+			this.internStep += 1;
+		},
+		getAnswers: function(){
+			var myScore = 0;
+
+			for(var count = 0; count < this.answers.length; count ++){
+				for(element in this.answers[count]){
+					if(this.answers[count][element].toUpperCase() === this.interns[count][element].toUpperCase()){
+						myScore = myScore + 1;
+					}
+				}
+			}
+
+			this.score = myScore;
+			this.hideClass = false;
+		}
 	}
 });
 </script>
