@@ -1,0 +1,33 @@
+
+h4{
+	margin: 10px 0;
+	padding: 0px;
+	color: #1abc9c;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.demo{
+	width: 100px;
+	height: 100px;
+	background-color: gray;
+	display: inline-block;
+	margin: 10px;
+}
+
+.red{
+	background-color: red;
+}
+
+.blue{
+	background-color: blue;
+}
+
+.green{
+	background-color: green;
+}
+
+#link-container{
+	padding-top: 40px;
+	border-top: 2px solid #ddd;
+}

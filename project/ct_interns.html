@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CT Interns</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.0/css/foundation.min.css">
+	<link rel="stylesheet" href="css/app.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+	<div id="app">
+		<div class="row">
+			<div class="small-12 columns">
+				<h1>How well do you know CT interns?</h1>
+				<p class="count"> {{ internStep }} / {{ totalInterns}}</p>
+			</div>
+
+			<div id="container" class="small-12 columns">
+				<div class="image-container columns small-4">
+					<div>
+						<img v-bind:src="interns[internStep - 1].image" alt="">
+					</div>
+				</div>
+
+				<div class="form-container columns small-8">
+					<form action="">
+						<label>
+						  	Enter Intern Name:
+						  	<input type="text" >
+						</label>
+
+						<label>
+						  	Age of Intern:
+						  	<input type="number" >
+						</label>
+
+						<label>
+						  	Place of Residence:
+						  	<input type="text" >
+						</label>
+
+						<div id="button-container" class="row columns small-12 ">
+							<div class="go-right">
+								<button v-on:click="internStep++" type="button" class="success button small expanded">Next Intern</button>
+							</div>
+						</div>
+						
+					</form>
+					
+				</div>
+			</div>
+
+		</div>
+
+	</div>	
+<script src="../scripts/vue.js"></script>	
+<script>
+
+var vm = new Vue({
+	el: "#app",
+	data: {
+		interns: [
+			{ name: "Ya'kov Erick", age: 22, residence: "Kaloleni", image: "img/erick.png"},
+			{ name: "Kelvin Maina", age: 23, residence: "Kitengela", image: "img/kelvin.png"},
+			{ name: "Brian Kariuki", age: 23, residence: "Kasarani", image: "img/brian.png"},
+			{ name: "Duncan Kinuthia", age: 22, residence: "Ruaka", image: "img/duncan.png"},
+			{ name: "Kisiara Francis", age: 28, residence: "Mirema", image: "img/frank.png"},
+		],
+
+		internStep: 1,
+		totalInterns: 5
+	},
+	methods: {
+
+	}
+});
+</script>
+</body>
+</html>

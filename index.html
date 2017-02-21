@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue Js Introduction</title>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+	<div class="">
+		<div id="app" class="col-md-6">
+			<div class="col-md-12">
+				<h4>String Interpolation &amp; Simple Input Binding</h4>
+				<input type='text' v-on:input='changeTitle'>
+				<p>{{ title }}</p>
+
+				<h4>Binding to Attributes</h4>
+				<p>{{ linkRedirect() }}<a v-bind:href='link'>Google</a></p>
+
+				<h4>Demonstrating v-once</h4>
+				<p v-once>{{ hello }}</p>
+				<p>{{ vOnceChange() }}</p>
+
+				<h4>Events: Listening and Handling</h4>
+				<button v-on:click='increase'>Click me</button>
+				<p>{{ counter }}</p>
+
+				<p v-on:mousemove='updateCoordinates'>
+					x coordinate: {{ x }} / y coordinate: {{ y }}
+					<span  v-on:mousemove.stop=''> 
+						DEAD SPOT
+					</span>
+				</p>
+
+				<h4>Two Way Data Binding</h4>
+				<input type="text" v-model="name">	
+				<p>{{ name }}</p>
+
+				<h4>Computed Properties and Shortcuts</h4>
+					<button @click='counter++'>Increase</button>
+					<button @click='counter--'>Decrease</button>
+				<p>{{ counter }}</p>
+			</div>
+		</div>
+
+		<div id="vyu" class="col-md-6">
+			<div class="col-md-12">
+				<h4>Dynamic styling with CSS classes</h4>
+				<div class="demo" @click="attachRed = !attachRed" :class="{red: attachRed}" ></div>
+				<div class="demo"></div>
+				<div class="demo"></div>
+			</div>
+		</div>
+	</div>
+	
+
+	<!-- <div class="row"> -->
+		<div id="link-container" class="col-md-12 text-center">
+			<a href="project/ct_interns.html" class="btn btn-lg btn-primary col-md-10 col-md-offset-1">Click here to check out my simple Vue project</a>
+		</div>
+	<!-- </div>/ -->
+
+<script src="scripts/vue.js"></script>
+
+<script>
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			hello: "Hello World",
+			title: "Transform me!",
+			link: "https://google.com",
+
+			counter: 0,
+			x: 0,
+			y: 0,
+
+			name: "Kisiara Francis"
+		},
+		methods: {
+			changeTitle: function(event){
+				this.title = event.target.value;
+			},
+
+			linkRedirect: function(){
+				return "I can take you to ";
+			},
+
+			vOnceChange: function(){
+				this.hello = "Ohio Gosaimas";
+				return this.hello;
+			},
+
+			increase: function(){
+				this.counter += 1;
+			},
+
+			updateCoordinates: function(event){
+				this.x = event.clientX;
+				this.y = event.clientY;
+
+			}
+		}
+
+	});
+
+
+	var v = new Vue({
+		el: "#vyu",
+		data: {
+			attachRed: false
+		}
+	});
+
+</script>
+</body>
+</html>
